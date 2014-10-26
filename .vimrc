@@ -30,3 +30,8 @@ set clipboard=unnamedplus
 
 " Set autoindentation
 set autoindent
+
+" Automatically use system clipboard to copy and paste
+" Need to have a version that has +xterm_clipboard
+" vim-gnome, for example, has such support
+set clipboard=unnamedplus
