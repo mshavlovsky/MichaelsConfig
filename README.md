@@ -1,10 +1,7 @@
 MichaelsConfig
 ==============
 
-# Configuration files for Linux
-
-	
-##Exporting and loading gnome terminal color scheme.
+##Exporting and loading gnome terminal color scheme
 Exporting
 ```
 gconftool-2 --dump '/apps/gnome-terminal' > gnome-terminal-conf.xml
