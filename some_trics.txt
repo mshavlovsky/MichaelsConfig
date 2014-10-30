@@ -1,0 +1,4 @@
+To add a mising *.sty tex style file:
+    1. Download it (from CRAN for example).
+    2. Add it to ~/texmf/tex/latex/local/
+    3. Run "texhash ~/texmf", it rebuilds filename databases used by TeX.
