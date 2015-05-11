@@ -31,7 +31,16 @@ set clipboard=unnamedplus
 " Set autoindentation
 set autoindent
 
-" Automatically use system clipboard to copy and paste
-" Need to have a version that has +xterm_clipboard
-" vim-gnome, for example, has such support
-set clipboard=unnamedplus
+
+" Cyrillic support
+"set keymap=russian-jcukenwin
+"set iminsert=0
+"set imsearch=0
+
+
+" Uncomment the following to have Vim jump to the last position when                                                       
+" reopening a file
+if has("autocmd")
+  au BufReadPost * if line("'\"") > 0 && line("'\"") <= line("$")
+    \| exe "normal! g'\"" | endif
+endif
