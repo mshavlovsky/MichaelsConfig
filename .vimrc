@@ -52,12 +52,19 @@ let g:ycm_autoclose_preview_window_after_insertion = 1
 set keymap=russian-jcukenwin
 set iminsert=0
 set imsearch=0
+" No need to press shift every time to write or exite a file
+nnoremap ; :
 
 
 "" Enters normal mode using jk
 if (exists("g:use_colemak") && g:use_colemak == 0)
     "imap <C-f> <Esc>
     imap jk <Esc>
+    " Easy window navigation
+    map <C-h> <C-w>h
+    map <C-j> <C-w>j
+    map <C-k> <C-w>k
+    map <C-l> <C-w>l
 endif
 
 
@@ -77,7 +84,13 @@ if (exists("g:use_colemak") && g:use_colemak == 1)
     " Next in search is "k", old "n"
     noremap k n
 
-    noremap ; p
+    " noremap ; p
+
+    " Easy window navigation
+    noremap <C-h> <C-w>h
+    noremap <C-n> <C-w>j
+    noremap <C-e> <C-w>k
+    noremap <C-i> <C-w>l
 
     "imap ne <Esc>
 
