@@ -78,6 +78,7 @@ if (exists("g:use_colemak") && g:use_colemak == 1)
     " "i" was insert, make "s" to be insert
 	noremap s i
     noremap S I
+    noremap N J
     " n -> j, moving down using "n" (old "j")
 	noremap n j
     " Connect lines using "N" instead of old "J"
