@@ -98,7 +98,7 @@ if (exists("g:use_colemak") && g:use_colemak == 1)
     noremap <C-i> <C-w>l
 
     " Easy window resizing
-    noremap <C-e> <C-w>=
+    noremap <C-u> <C-w>=
     noremap <C-m> <C-w>_
     "imap ne <Esc>
 
