@@ -55,6 +55,8 @@ set imsearch=0
 " No need to press shift every time to write or exite a file
 nnoremap ; :
 
+set hlsearch
+
 
 "" Enters normal mode using jk
 if (exists("g:use_colemak") && g:use_colemak == 0)
@@ -84,6 +86,8 @@ if (exists("g:use_colemak") && g:use_colemak == 1)
     " Connect lines using "N" instead of old "J"
     " Next in search is "k", old "n"
     noremap k n
+    " Previous in search is "K", old "N"
+    noremap K N
 
     " noremap ; p
 
@@ -93,6 +97,9 @@ if (exists("g:use_colemak") && g:use_colemak == 1)
     noremap <C-e> <C-w>k
     noremap <C-i> <C-w>l
 
+    " Easy window resizing
+    noremap <C-e> <C-w>=
+    noremap <C-m> <C-w>_
     "imap ne <Esc>
 
     "nnoremap <silent> N @='5n'<CR>|xnoremap <silent> N @='5n'<CR>|onoremap N 5h|
