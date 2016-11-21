@@ -104,3 +104,5 @@ if (exists("g:use_colemak") && g:use_colemak == 1)
 
     "nnoremap <silent> N @='5n'<CR>|xnoremap <silent> N @='5n'<CR>|onoremap N 5h|
 endif
+
+autocmd Filetype javascript setlocal ts=2 sw=2 expandtab
