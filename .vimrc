@@ -63,10 +63,12 @@ if (exists("g:use_colemak") && g:use_colemak == 0)
     "imap <C-f> <Esc>
     imap jk <Esc>
     " Easy window navigation
-    map <C-h> <C-w>h
-    map <C-j> <C-w>j
-    map <C-k> <C-w>k
-    map <C-l> <C-w>l
+"   map <C-h> <C-w>h
+"   map <C-j> <C-w>j
+"   map <C-k> <C-w>k
+"   map <C-l> <C-w>l
+
+
 endif
 
 
@@ -97,6 +99,8 @@ if (exists("g:use_colemak") && g:use_colemak == 1)
     noremap <C-e> <C-w>k
     noremap <C-i> <C-w>l
 
+
+
     " Easy window resizing
     noremap <C-u> <C-w>=
     noremap <C-m> <C-w>_
@@ -106,3 +110,4 @@ if (exists("g:use_colemak") && g:use_colemak == 1)
 endif
 
 autocmd Filetype javascript setlocal ts=2 sw=2 expandtab
+set lazyredraw
