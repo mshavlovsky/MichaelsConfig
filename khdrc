@@ -169,3 +169,6 @@ shift + cmd - d : chunkc tiling::window --use-temporary-ratio -0.1 --adjust-wind
 #cmd - 7 : khd -p "shift + alt - 7"
 #cmd - 8 : khd -p "shift + alt - 8"
 #cmd - 9 : khd -p "shift + alt - 9"
+
+ctrl - w : launchctl load -w /Users/shavlov/Library/LaunchAgents/com.koekeishiya.chunkwm.plist
+ctrl - q : launchctl unload -w /Users/shavlov/Library/LaunchAgents/com.koekeishiya.chunkwm.plist
