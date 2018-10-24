@@ -1,3 +1,37 @@
+if has('nvim')
+    set termguicolors
+
+    let g:ale_completion_enabled = 1
+    " Check Python files with flake8 and pylint.
+    "
+    let g:python_host_prog = '/Users/shavlov/miniconda2/bin/python'
+    let g:python3_host_prog = '/usr/local/bin/python3'
+    let b:ale_linters = ['flake8', 'pylint']
+    " Fix Python files with autopep8 and yapf.
+    "let b:ale_fixers = ['autopep8', 'yapf']
+     
+    call plug#begin('~/.vim/plugged')
+    Plug 'iCyMind/NeoSolarized'
+    Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
+    Plug 'zchee/deoplete-jedi'
+    Plug 'w0rp/ale'
+    call plug#end()
+
+    set background=dark
+    colorscheme NeoSolarized
+
+    " Use deoplete.
+    let g:deoplete#enable_at_startup = 1
+
+    if !exists('g:deoplete#omni#input_patterns')
+        "let g:deoplete#omni#input_patterns = {}
+        " deoplete tab-complete
+        inoremap <expr><tab> pumvisible() ? "\<c-n>" : "\<tab>"
+    endif
+
+else
+    execute pathogen#infect()
+endif
 let g:use_colemak = 1
 " Use spaces instead of tabs
 set expandtab
@@ -16,9 +50,13 @@ set backspace=indent,eol,start
 " Solarized color scheme
 syntax enable
 "let g:solarized_termcolors=256
-"set background=dark
-"colorscheme solarized
-colorscheme SolarizedDarkCinnamon
+
+if has('nvim')
+else
+    set background=dark
+    colorscheme solarized
+endif
+"colorscheme SolarizedDarkCinnamon
 
 " Underline the cursor line.
 set cursorline
@@ -27,7 +65,7 @@ set cursorline
 hi CursorLine term=bold cterm=bold 
 
 " allow to copy from and to clipboard
-set clipboard=unnamedplus
+set clipboard+=unnamed
 
 " Set autoindentation
 set autoindent
@@ -49,7 +87,7 @@ endif
 let g:ycm_autoclose_preview_window_after_completion = 1
 let g:ycm_autoclose_preview_window_after_insertion = 1
 
-set keymap=russian-jcukenwin
+"set keymap=russian-jcukenwin
 set iminsert=0
 set imsearch=0
 " No need to press shift every time to write or exite a file
@@ -111,3 +149,22 @@ endif
 
 autocmd Filetype javascript setlocal ts=2 sw=2 expandtab
 set lazyredraw
+set ruler
+set spell
+
+
+
+au FileType tex setl shiftwidth=2 tabstop=2
+
+
+if has('nvim')
+    " Put these lines at the very end of your vimrc file.
+
+    " Load all plugins now.
+    " Plugins need to be added to runtimepath before helptags can be generated.
+    packloadall
+    " Load all of the helptags now, after plugins have been loaded.
+    " All messages and errors will be ignored.
+    silent! helptags ALL
+
+endif
