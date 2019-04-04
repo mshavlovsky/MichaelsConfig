@@ -1,34 +1,64 @@
 if has('nvim')
     set termguicolors
 
-    let g:ale_completion_enabled = 1
-    " Check Python files with flake8 and pylint.
-    "
-    let g:python_host_prog = '/Users/shavlov/miniconda2/bin/python'
-    let g:python3_host_prog = '/usr/local/bin/python3'
-    let b:ale_linters = ['flake8', 'pylint']
-    " Fix Python files with autopep8 and yapf.
-    "let b:ale_fixers = ['autopep8', 'yapf']
-     
     call plug#begin('~/.vim/plugged')
-    Plug 'iCyMind/NeoSolarized'
-    Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
-    Plug 'zchee/deoplete-jedi'
-    Plug 'w0rp/ale'
-    call plug#end()
+
+        " Shorthand notation; fetches https://github.com/junegunn/vim-easy-align
+        Plug 'junegunn/vim-easy-align'
+        Plug 'iCyMind/NeoSolarized'
+        Plug 'neoclide/coc.nvim', {'do': { -> coc#util#install()}}
+        Plug 'lervag/vimtex'
+        Plug 'darfink/vim-plist'
+
+    call plug#end()   
+    " vimtex parameters
+    let g:tex_flavor  = 'latex'
+    let g:tex_conceal = ''
+    let g:vimtex_fold_manual = 1
+    let g:vimtex_latexmk_continuous = 1
+    let g:vimtex_compiler_progname = 'nvr'
+    "let g:vimtex_view_method = 'texshop'
 
     set background=dark
     colorscheme NeoSolarized
 
-    " Use deoplete.
-    let g:deoplete#enable_at_startup = 1
+  "  " Use deoplete.
+  "  let g:deoplete#enable_at_startup = 1
 
-    if !exists('g:deoplete#omni#input_patterns')
-        "let g:deoplete#omni#input_patterns = {}
-        " deoplete tab-complete
-        inoremap <expr><tab> pumvisible() ? "\<c-n>" : "\<tab>"
-    endif
+  "  if !exists('g:deoplete#omni#input_patterns')
+  "      "let g:deoplete#omni#input_patterns = {}
+  "      " deoplete tab-complete
+  "      inoremap <expr><tab> pumvisible() ? "\<c-n>" : "\<tab>"
+  "  endif
 
+    " use <tab> for trigger completion and navigate to next complete item
+    function! s:check_back_space() abort
+      let col = col('.') - 1
+      return !col || getline('.')[col - 1]  =~ '\s'
+    endfunction
+
+    inoremap <silent><expr> <TAB>
+          \ pumvisible() ? "\<C-n>" :
+          \ <SID>check_back_space() ? "\<TAB>" :
+          \ coc#refresh()
+
+    " Use K for show documentation in preview window
+    nnoremap <silent> K :call <SID>show_documentation()<CR>
+
+    function! s:show_documentation()
+      if &filetype == 'vim'
+        execute 'h '.expand('<cword>')
+      else
+        call CocAction('doHover')
+      endif
+    endfunction
+
+    " Remap keys for gotos
+    nmap <silent> gd <Plug>(coc-definition)
+    nmap <silent> gy <Plug>(coc-type-definition)
+    nmap <silent> gi <Plug>(coc-implementation)
+    nmap <silent> gr <Plug>(coc-references)
+    
 else
     execute pathogen#infect()
 endif
@@ -127,7 +157,7 @@ if (exists("g:use_colemak") && g:use_colemak == 1)
     " Next in search is "k", old "n"
     noremap k n
     " Previous in search is "K", old "N"
-    noremap K N
+    "noremap K N
 
     " noremap ; p
 

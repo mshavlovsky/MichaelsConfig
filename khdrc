@@ -119,10 +119,13 @@ shift + cmd - e : chunkc tiling::window --use-temporary-ratio 0.1 --adjust-windo
 #shift + cmd - i : chunkc tiling::window --use-temporary-ratio -0.1 --adjust-window-edge east
 #
 
-lctrl - h         ![HyperTerm,Terminal,iTerm2]      :   khd -p "- left"
 lctrl - n         ![HyperTerm,Terminal,iTerm2]      :   khd -p "- down"
 lctrl - e         ![HyperTerm,Terminal,iTerm2]      :   khd -p "- up"
-lctrl - i         ![HyperTerm,Terminal,iTerm2]      :   khd -p "- right"
+lctrl - h         ![HyperTerm,Terminal,iTerm2,PyCharm]      :   khd -p "- left"
+lctrl - i         ![HyperTerm,Terminal,iTerm2,PyCharm]      :   khd -p "- right"
+
+lctrl + shift - h         ![HyperTerm,Terminal,iTerm2,PyCharm]      :   khd -p "shift - left"
+lctrl + shift - i         ![HyperTerm,Terminal,iTerm2,PyCharm]      :   khd -p "shift - right"
 
 ## set insertion point for focused container
 #ctrl + alt - f : chunkc tiling::window --use-insertion-point cancel

@@ -116,3 +116,6 @@ chunkc tiling::rule --owner \"Amazon Chime\" --state float
 chunkc tiling::rule --owner \"Microsoft Outlook\" --state float
 chunkc tiling::rule --owner \"Microsoft OneNote\" --state float
 chunkc tiling::rule --owner \"Outline\" --state float
+chunkc tiling::rule --owner \"Amazon Music\" --state float
+chunkc tiling::rule --owner \"Preview\" --state float
+chunkc tiling::rule --owner \"Calendar\" --state float
