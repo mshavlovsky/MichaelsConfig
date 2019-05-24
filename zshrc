@@ -1,8 +1,8 @@
 # If you come from bash you might have to change your $PATH.
 # export PATH=$HOME/bin:/usr/local/bin:$PATH
-export PATH=$HOME/.toolbox/bin/:$PATH
+
 # Path to your oh-my-zsh installation.
-export ZSH=/Users/shavlov/.oh-my-zsh
+export ZSH=/home/shavlov/.oh-my-zsh
 
 # Set name of the theme to load. Optionally, if you set this to "random"
 # it'll load a random theme each time that oh-my-zsh is loaded.
@@ -51,7 +51,7 @@ ZSH_THEME="robbyrussell"
 # Custom plugins may be added to ~/.oh-my-zsh/custom/plugins/
 # Example format: plugins=(rails git textmate ruby lighthouse)
 # Add wisely, as too many plugins slow down shell startup.
-plugins=(git history-substring-search)
+plugins=(git, history-substring-search)
 
 source $ZSH/oh-my-zsh.sh
 bindkey '^n' history-substring-search-up
@@ -84,3 +84,39 @@ bindkey '^e' history-substring-search-down
 # Example aliases
 # alias zshconfig="mate ~/.zshrc"
 # alias ohmyzsh="mate ~/.oh-my-zsh"
+#export PATH="/local/packages/miniconda2/bin:/apollo/env/SDETools/bin:$PATH"
+
+
+
+export ZSH_DISABLE_COMPFIX=true
+
+export KEYTIMEOUT=1
+
+bindkey -v
+
+bindkey '^n' history-substring-search-up
+bindkey '^e' history-substring-search-down
+
+#bindkey  -r 'i'
+bindkey -M vicmd 'i' vi-forward-char
+
+# History search fix
+vi-cmd-up-line-history() {
+  zle vi-cmd-mode
+  zle history-substring-search-up
+}
+zle -N vi-cmd-up-line-history
+bindkey -M vicmd '^n' vi-cmd-up-line-history
+bindkey -M viins '^n' vi-cmd-up-line-history
+
+vi-cmd-down-line-history() {
+  zle vi-cmd-mode
+  zle history-substring-search-down
+}
+zle -N vi-cmd-down-line-history
+bindkey -M vicmd '^e' vi-cmd-down-line-history
+bindkey -M viins '^e' vi-cmd-down-line-history
+bindkey -M vicmd '^u' vi-change-whole-line
+#bindkey -M vicmd 'dd' vi-change-whole-line
+bindkey -M viins '^u' vi-change-whole-line
+bindkey -M vicmd 'D' vi-change-eol
