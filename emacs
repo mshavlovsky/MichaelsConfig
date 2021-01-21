@@ -1,4 +1,8 @@
 (require 'package)
+
+(setenv "PATH" (concat (getenv "PATH") ":/Library/TeX/texbin"))
+
+
 (let* ((no-ssl (and (memq system-type '(windows-nt ms-dos))
                     (not (gnutls-available-p))))
        (proto (if no-ssl "http" "https")))
@@ -52,7 +56,7 @@ There are two things you can do about this warning:
 
 
 (setq tramp-default-method "ssh")
-(load-theme 'solarized-dark t)
+;;(load-theme 'solarized-dark t)
 
 (defun my-babel-to-buffer ()
   "A function to efficiently feed babel code block result to a separate buffer"
@@ -73,17 +77,142 @@ There are two things you can do about this warning:
 (setq scroll-step            1
       scroll-conservatively  10000)
 
-(setq org-log-done 'time)
+;;(setq org-log-done 'time)
+(require 'org)
+(global-set-key (kbd "C-c l") 'org-store-link)
+(global-set-key (kbd "C-c a") 'org-agenda)
+(global-set-key (kbd "C-c c") 'org-capture)
+(setq org-log-done t)
 
 (custom-set-variables
  ;; custom-set-variables was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
- '(package-selected-packages (quote (## solarized-theme evil))))
+ '(org-agenda-custom-commands
+   (quote
+    (("d" todo "DELEGATED" nil)
+     ("c" todo "DONE|DEFERRED|CANCELLED" nil)
+     ("w" todo "WAITING" nil)
+     ("W" agenda ""
+      ((org-agenda-ndays 21)))
+     ("A" agenda ""
+      ((org-agenda-skip-function
+	(lambda nil
+	  (org-agenda-skip-entry-if
+	   (quote notregexp)
+	   "\\=.*\\[#A\\]")))
+       (org-agenda-ndays 1)
+       (org-agenda-overriding-header "Today's Priority #A tasks: ")))
+     ("u" alltodo ""
+      ((org-agenda-skip-function
+	(lambda nil
+	  (org-agenda-skip-entry-if
+	   (quote scheduled)
+	   (quote deadline)
+	   (quote regexp)
+	   "
+]+>")))
+       (org-agenda-overriding-header "Unscheduled TODO entries: "))))))
+ '(org-agenda-files (quote ("~/todo.org")))
+ '(org-agenda-ndays 7)
+ '(org-agenda-show-all-dates t)
+ '(org-agenda-skip-deadline-if-done t)
+ '(org-agenda-skip-scheduled-if-done t)
+ '(org-agenda-start-on-weekday nil)
+ '(org-deadline-warning-days 14)
+ '(org-default-notes-file "~/notes.org")
+ '(org-fast-tag-selection-single-key (quote expert))
+ '(org-remember-store-without-prompt t)
+ '(org-remember-templates
+   (quote
+    ((116 "* TODO %?
+  %u" "~/todo.org" "Tasks")
+     (110 "* %u %?" "~/notes.org" "Notes"))))
+ '(org-reverse-note-order t)
+ '(package-selected-packages
+   (quote
+    (org-preview-html remember-last-theme ## solarized-theme evil)))
+ '(remember-annotation-functions (quote (org-remember-annotation)))
+ '(remember-handler-functions (quote (org-remember-handler))))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
  )
+
+(setq org-agenda-files (list "~/org/work.org"
+                             "~/org/home.org"))
+
+;;(define-key evil-normal-state-map (kbd "C-c a") ('org-todo-list))
+;;----------------
+(require 'org-install)
+
+
+(add-to-list 'auto-mode-alist '("\\.org$" . org-mode))
+
+(define-key mode-specific-map [?a] 'org-agenda)
+
+(eval-after-load "org"
+  '(progn
+     (define-prefix-command 'org-todo-state-map)
+
+     (define-key org-mode-map "\C-cx" 'org-todo-state-map)
+
+     (define-key org-todo-state-map "x"
+       #'(lambda nil (interactive) (org-todo "CANCELLED")))
+     (define-key org-todo-state-map "d"
+       #'(lambda nil (interactive) (org-todo "DONE")))
+     (define-key org-todo-state-map "f"
+       #'(lambda nil (interactive) (org-todo "DEFERRED")))
+     (define-key org-todo-state-map "l"
+       #'(lambda nil (interactive) (org-todo "DELEGATED")))
+     (define-key org-todo-state-map "s"
+       #'(lambda nil (interactive) (org-todo "STARTED")))
+     (define-key org-todo-state-map "w"
+       #'(lambda nil (interactive) (org-todo "WAITING")))
+
+  ;;   (define-key org-agenda-mode-map "\C-n" 'next-line)
+  ;;   (define-key org-agenda-keymap "\C-n" 'next-line)
+  ;;   (define-key org-agenda-mode-map "\C-p" 'previous-line)
+  ;;   (define-key org-agenda-keymap "\C-p" 'previous-line)
+  ))
+
+
+(setq org-default-notes-file (concat org-directory "~/notes.org"))
+(define-key global-map "\C-cc" 'org-capture)
+
+(add-hook 'remember-mode-hook 'org-remember-apply-template)
+
+(define-key global-map [(control meta ?r)] 'remember)
+
+
+
+(setq org-capture-templates
+  '(("t" "Todo" entry (file+headline "~/todo.org" "Tasks")
+     "* TODO %?\n  %i\n  %a")
+   )
+)
+
+(set-default-font "JetBrains Mono 13")
+
+
+(add-to-list 'org-src-lang-modes '("latex-macros" . latex))
+
+(defvar org-babel-default-header-args:latex-macros
+  '((:results . "raw")
+    (:exports . "results")))
+
+(defun prefix-all-lines (pre body)
+  (with-temp-buffer
+    (insert body)
+    (string-insert-rectangle (point-min) (point-max) pre)
+    (buffer-string)))
+
+(defun org-babel-execute:latex-macros (body _params)
+  (concat
+   (prefix-all-lines "#+LATEX_HEADER: " body)
+   "\n#+HTML_HEAD_EXTRA: <div style=\"display: none\"> \\(\n"
+   (prefix-all-lines "#+HTML_HEAD_EXTRA: " body)
+   "\n#+HTML_HEAD_EXTRA: \\)</div>\n"))
