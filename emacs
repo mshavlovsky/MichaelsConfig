@@ -2,6 +2,8 @@
 
 (setenv "PATH" (concat (getenv "PATH") ":/Library/TeX/texbin"))
 
+(savehist-mode 1)
+
 
 (let* ((no-ssl (and (memq system-type '(windows-nt ms-dos))
                     (not (gnutls-available-p))))
@@ -21,9 +23,12 @@ There are two things you can do about this warning:
 
 
 (org-babel-do-load-languages 'org-babel-load-languages
-    '(
-        (shell . t)
-    )
+    ;;'((dot . t))
+    '((shell . t))
+)
+
+(org-babel-do-load-languages 'org-babel-load-languages
+    '((dot . t))
 )
 
 (setq org-confirm-babel-evaluate nil)
@@ -90,8 +95,7 @@ There are two things you can do about this warning:
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
  '(org-agenda-custom-commands
-   (quote
-    (("d" todo "DELEGATED" nil)
+   '(("d" todo "DELEGATED" nil)
      ("c" todo "DONE|DEFERRED|CANCELLED" nil)
      ("w" todo "WAITING" nil)
      ("W" agenda ""
@@ -99,22 +103,16 @@ There are two things you can do about this warning:
      ("A" agenda ""
       ((org-agenda-skip-function
 	(lambda nil
-	  (org-agenda-skip-entry-if
-	   (quote notregexp)
-	   "\\=.*\\[#A\\]")))
+	  (org-agenda-skip-entry-if 'notregexp "\\=.*\\[#A\\]")))
        (org-agenda-ndays 1)
        (org-agenda-overriding-header "Today's Priority #A tasks: ")))
      ("u" alltodo ""
       ((org-agenda-skip-function
 	(lambda nil
-	  (org-agenda-skip-entry-if
-	   (quote scheduled)
-	   (quote deadline)
-	   (quote regexp)
-	   "
+	  (org-agenda-skip-entry-if 'scheduled 'deadline 'regexp "
 ]+>")))
-       (org-agenda-overriding-header "Unscheduled TODO entries: "))))))
- '(org-agenda-files (quote ("~/todo.org")))
+       (org-agenda-overriding-header "Unscheduled TODO entries: ")))))
+ '(org-agenda-files '("~/todo.org"))
  '(org-agenda-ndays 7)
  '(org-agenda-show-all-dates t)
  '(org-agenda-skip-deadline-if-done t)
@@ -122,19 +120,17 @@ There are two things you can do about this warning:
  '(org-agenda-start-on-weekday nil)
  '(org-deadline-warning-days 14)
  '(org-default-notes-file "~/notes.org")
- '(org-fast-tag-selection-single-key (quote expert))
+ '(org-fast-tag-selection-single-key 'expert)
  '(org-remember-store-without-prompt t)
  '(org-remember-templates
-   (quote
-    ((116 "* TODO %?
+   '((116 "* TODO %?
   %u" "~/todo.org" "Tasks")
-     (110 "* %u %?" "~/notes.org" "Notes"))))
+     (110 "* %u %?" "~/notes.org" "Notes")))
  '(org-reverse-note-order t)
  '(package-selected-packages
-   (quote
-    (org-preview-html remember-last-theme ## solarized-theme evil)))
- '(remember-annotation-functions (quote (org-remember-annotation)))
- '(remember-handler-functions (quote (org-remember-handler))))
+   '(use-package yasnippet org-preview-html remember-last-theme ## solarized-theme evil))
+ '(remember-annotation-functions '(org-remember-annotation))
+ '(remember-handler-functions '(org-remember-handler)))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
@@ -195,7 +191,8 @@ There are two things you can do about this warning:
    )
 )
 
-(set-default-font "JetBrains Mono 13")
+;;(set-default-font "JetBrains Mono 13")
+(set-frame-font "JetBrains Mono 13" nil t)
 
 
 (add-to-list 'org-src-lang-modes '("latex-macros" . latex))
@@ -216,3 +213,15 @@ There are two things you can do about this warning:
    "\n#+HTML_HEAD_EXTRA: <div style=\"display: none\"> \\(\n"
    (prefix-all-lines "#+HTML_HEAD_EXTRA: " body)
    "\n#+HTML_HEAD_EXTRA: \\)</div>\n"))
+
+(require 'package)
+(add-to-list 'package-archives
+             '("melpa" . "https://melpa.org/packages/") t)
+
+(setq yas-snippet-dirs
+      '("~/.emacs.d/snippets"                 ;; personal snippets
+        ))
+
+(yas-global-mode 1) ;; or M-x yas-reload-all if you've started YASnippet already.
+
+

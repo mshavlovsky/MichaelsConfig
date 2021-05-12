@@ -120,3 +120,9 @@ bindkey -M vicmd '^u' vi-change-whole-line
 #bindkey -M vicmd 'dd' vi-change-whole-line
 bindkey -M viins '^u' vi-change-whole-line
 bindkey -M vicmd 'D' vi-change-eol
+
+
+# Uncomment for remote host, if want to start tmux session automatically upon ssh
+#if [[ -n "$PS1" ]] && [[ -z "$TMUX" ]] && [[ -n "$SSH_CONNECTION" ]]; then
+#  tmux attach-session -t ssh_dev || tmux new-session -s ssh_dev
+#fi
