@@ -1,0 +1,32 @@
+# focus window
+alt - h : yabai -m window --focus west
+alt - n : yabai -m window --focus south
+alt - e : yabai -m window --focus north
+alt - i : yabai -m window --focus east
+
+# move window
+shift + alt - h : yabai -m window --warp west
+shift + alt - n : yabai -m window --warp south
+shift + alt - e : yabai -m window --warp north
+shift + alt - i : yabai -m window --warp east
+
+# toggle parent/child and horizontal/vertical split
+alt - p : yabai -m window --toggle zoom-parent
+alt - s : yabai -m window --toggle split
+
+## decrease region size
+#shift + cmd - h : chunkc tiling::window --use-temporary-ratio 0.1 --adjust-window-edge west
+#shift + cmd - i : chunkc tiling::window --use-temporary-ratio -0.1 --adjust-window-edge west
+#shift + cmd - n : chunkc tiling::window --use-temporary-ratio -0.1 --adjust-window-edge north
+#shift + cmd - e : chunkc tiling::window --use-temporary-ratio 0.1 --adjust-window-edge north
+#
+#
+#lctrl - n         ![HyperTerm,Terminal,iTerm2,Emacs]      :   khd -p "- down"
+#lctrl - e         ![HyperTerm,Terminal,iTerm2,Emacs]      :   khd -p "- up"
+#lctrl + shift - h :   khd -p "- left"
+#lctrl + shift - i :   khd -p "- right"
+
+
+
+ctrl - w : brew services start yabai
+ctrl - q : brew services stop yabai
