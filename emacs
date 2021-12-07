@@ -46,12 +46,33 @@ There are two things you can do about this warning:
 (define-key evil-motion-state-map "k" 'evil-search-next)
 (define-key evil-motion-state-map "K" 'evil-search-previous)
 
+
 (eval-after-load "evil"
   '(progn
      (define-key evil-normal-state-map (kbd "C-h") 'evil-window-left)
      (define-key evil-normal-state-map (kbd "C-n") 'evil-window-down)
      (define-key evil-normal-state-map (kbd "C-e") 'evil-window-up)
-     (define-key evil-normal-state-map (kbd "C-i") 'evil-window-right)))
+     (define-key evil-normal-state-map (kbd "C-i") 'evil-window-right)
+
+;; Disable deleting/editing keys to focus on fleshing out.
+     (define-key evil-normal-state-map (kbd "d") 'evil-nop)
+     (define-key evil-normal-state-map (kbd "D") 'evil-nop)
+     (define-key evil-normal-state-map (kbd "r") 'evil-nop)
+     (define-key evil-normal-state-map (kbd "x") 'evil-nop)
+     (define-key evil-insert-state-map [(backspace)] 'evil-nop)
+     (define-key evil-insert-state-map [(delete)] 'evil-nop)
+
+   )
+
+)
+
+;;    noremap d <Nop>
+;;    noremap dd <Nop>
+;;    noremap D <Nop>
+;;    noremap x <Nop>
+;;    noremap r <Nop>
+;;    inoremap <backspace> <Nop>
+;;    inoremap <Del> <Nop>
 
 ;;(setq x-select-enable-clipboard t)
 (setq inhibit-startup-screen t)
@@ -76,8 +97,8 @@ There are two things you can do about this warning:
 (add-hook 'org-mode-hook 'my-org-mode-config)
 ;;(add-hook 'org-babel-after-execute-hook 'my-bable-to-buffer)
 
-(global-set-key (kbd "`") 'execute-extended-command)
-(define-key evil-normal-state-map (kbd "`") 'execute-extended-command)
+;(global-set-key (kbd "`") 'execute-extended-command)
+;(define-key evil-normal-state-map (kbd "`") 'execute-extended-command)
 ;; Scrolling smoothly
 (setq scroll-step            1
       scroll-conservatively  10000)
@@ -224,4 +245,42 @@ There are two things you can do about this warning:
 
 (yas-global-mode 1) ;; or M-x yas-reload-all if you've started YASnippet already.
 
+(global-hl-line-mode 1)
 
+;;;; Write in column format
+;;(setq-default fill-column 36)
+;;(add-hook 'org-mode-hook #'auto-fill-mode)
+;;(add-hook 'org-mode-hook #'display-fill-column-indicator-mode)
+;;
+;;
+;;;; Disable deleting/editing keys to focus on fleshing out.
+;;(eval-after-load "evil"
+;;  '(progn
+;;     (define-key evil-normal-state-map (kbd "d") 'evil-nop)
+;;     (define-key evil-normal-state-map (kbd "D") 'evil-nop)
+;;     (define-key evil-normal-state-map (kbd "r") 'evil-nop)
+;;     (define-key evil-normal-state-map (kbd "x") 'evil-nop)
+;;     (define-key evil-insert-state-map [(backspace)] 'evil-nop)
+;;     (define-key evil-insert-state-map [(delete)] 'evil-nop)
+;;
+;;   )
+;;
+;;)
+
+;;;;(defun split-into-six-horizontally-and-follow ()
+;;;;  "Splits current window into 6 windows horizontally and switchs
+;;;;to follow-mode"
+;;;;  (interactive)
+;;;;  (delete-other-windows)
+;;;;  (split-window-horizontally)
+;;;;  (split-window-horizontally)
+;;;;  (split-window-horizontally)
+;;;;  (split-window-horizontally)
+;;;;  (split-window-horizontally)
+;;;;  ;;(balance-windows)
+;;;;  (follow-mode 1)
+;;;;  ;; Turn on line highlighting to make it easier to track cursor
+;;;;  (hl-line-mode 1)
+;;;;  )
+;;;;
+;;;;(global-set-key (kbd "C-x f") 'split-into-six-horizontally-and-follow)
