@@ -53,15 +53,6 @@ There are two things you can do about this warning:
      (define-key evil-normal-state-map (kbd "C-n") 'evil-window-down)
      (define-key evil-normal-state-map (kbd "C-e") 'evil-window-up)
      (define-key evil-normal-state-map (kbd "C-i") 'evil-window-right)
-
-;; Disable deleting/editing keys to focus on fleshing out.
-     (define-key evil-normal-state-map (kbd "d") 'evil-nop)
-     (define-key evil-normal-state-map (kbd "D") 'evil-nop)
-     (define-key evil-normal-state-map (kbd "r") 'evil-nop)
-     (define-key evil-normal-state-map (kbd "x") 'evil-nop)
-     (define-key evil-insert-state-map [(backspace)] 'evil-nop)
-     (define-key evil-insert-state-map [(delete)] 'evil-nop)
-
    )
 
 )
