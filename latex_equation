@@ -1,0 +1,7 @@
+# -*- mode: snippet -*-
+# name: latex_equation
+# key: be
+# --
+\begin{align*}
+$0
+\end{align*}

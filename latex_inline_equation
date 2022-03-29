@@ -1,0 +1,5 @@
+# -*- mode: snippet -*-
+# name: latex_inline_equation
+# key: e
+# --
+\\( $0 \\)
