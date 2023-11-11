@@ -1,0 +1,65 @@
+{
+    "telemetry.telemetryLevel": "off",
+    "update.mode": "none",
+    "vim.vimrc.enable": true,
+    "fontFamily": "JetBrains Mono",
+    "editor.fontFamily": "JetBrains Mono",
+    "editor.fontSize": 13,
+    "editor.letterSpacing": 1.0,
+    //"editor.fontWeight": "300",
+    "editor.lineHeight": 22,
+    "editor.fontLigatures": true,
+    "workbench.colorCustomizations": {
+        "tab.activeBackground": "#bd7906",
+        "statusBar.background": "#e1d7c4",
+        "statusBar.noFolderBackground": "#e1d7c4",
+        "statusBar.debuggingBackground": "#e1d7c4",
+        "statusBar.foreground": "#595959",
+        "statusBar.debuggingForeground": "#595959",
+        "editor.selectionBackground": "#fdb78f",
+        "editor.selectionHighlightBackground": "#fdb78f",
+        //"editor.findMatchBackground": "#aba498",
+        "editor.wordHighlightBackground": "#aba498",
+    },
+    
+
+    "vim.statusBarColorControl": true,
+    "vim.statusBarColors.insert": ["#e1d7c4", "#595959"],
+    "vim.statusBarColors.easymotioninputmode": "#007acc",
+    "vim.statusBarColors.normal": ["#e1d7c4", "#595959"],
+    "vim.statusBarColors.visual": ["#e1d7c4", "#595959"],
+    "vim.statusBarColors.visualline": ["#e1d7c4", "#595959"],
+    "vim.statusBarColors.commandlineinprogress": ["#e1d7c4", "#5c007d"],
+    "vim.statusBarColors.searchinprogressmode": "#e1d7c4",
+
+    "editor.minimap.enabled": false,
+    "workbench.colorTheme": "Solarized Light+",
+    "python.formatting.provider": "black",
+    "vim.normalModeKeyBindingsNonRecursive": [
+        {
+            "before": ["g", "t"],
+            "commands": ["editor.action.revealDefinition"]
+        },
+        {
+            "before": ["g", "b"],
+            "commands": ["workbench.action.navigateBack"]
+        },
+        {
+            "before": ["g", "f"],
+            "commands": ["editor.action.formatDocument"]
+        },
+    ],
+    "jupyter.jupyterServerType": "remote",
+    "notebook.cellFocusIndicator": "border",
+    "breadcrumbs.enabled": false,
+    "jupyter.askForKernelRestart": false,
+    "vscode-neovim.neovimExecutablePaths.darwin": "/usr/local/bin/nvim",
+    "extensions.experimental.affinity": {
+        "asvetliakov.vscode-neovim": 1
+    },
+    "vscode-neovim.neovimInitVimPaths.darwin": "~/.config/nvim/init.vim",
+    "remote.containers.defaultExtensions": [
+        "ms-python.python"
+    ],
+    "terminal.integrated.inheritEnv": false,
+}
