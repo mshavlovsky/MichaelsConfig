@@ -27,7 +27,7 @@ if has('nvim')
    " let g:vimtex_view_general_options = '-a TeXShop'
     let g:vimtex_view_general_viewer = 'cust_pdf.sh'
 
-    set background=dark
+    "set background=dark
     "set background=light
     colorscheme NeoSolarized
 
@@ -95,8 +95,8 @@ syntax enable
 
 if has('nvim')
 else
-    set background=dark
-    "set background=light
+    "set background=dark
+    set background=light
     colorscheme solarized
 endif
 "colorscheme SolarizedDarkCinnamon
@@ -134,7 +134,8 @@ let g:ycm_autoclose_preview_window_after_insertion = 1
 set iminsert=0
 set imsearch=0
 " No need to press shift every time to write or exite a file
-nnoremap ; :
+"nnoremap ; :
+"noremap : ;
 
 set hlsearch
 
@@ -153,10 +154,12 @@ endif
 if (exists("g:use_colemak") && g:use_colemak == 1)
 
     " e -> k, moving cursor up using "e" (old "k")
-	noremap W e
 	noremap e k
+	"noremap k e
     "i -> l, moving left using "i" (old "l")
-    noremap i l
+    nnoremap i l
+    vnoremap i l
+    "noremap l i
     "noremap i <Nop>
 	"noremap I l
 	"noremap i w
